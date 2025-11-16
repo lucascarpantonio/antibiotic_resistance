@@ -1,0 +1,38 @@
+Column_Name,Description
+ID,Unique patient or bacterial sample identifier
+Name,Full name of the patient
+Email,Patient contact email
+Address,Complete address before parsing
+age/gender,"Original combined field for age and gender (e.g. ""40/F"")"
+Souches,Raw bacterial strain code
+Diabetes,Indicates if the patient has diabetes
+Hypertension,Indicates if the patient has hypertension
+Hospital_before,Whether the patient was previously hospitalized
+Infection_Freq,Frequency of infection episodes
+AMX/AMP,"Amoxicillin/Ampicillin susceptibility result (""S""=Sensitive, ""R""=Resistant)"
+AMC,Amoxicillin + Clavulanic Acid susceptibility result
+CZ,Cefazolin susceptibility result
+FOX,Cefoxitin susceptibility result
+CTX/CRO,Ceftriaxone/Cefotaxime susceptibility result
+IPM,Imipenem susceptibility result
+GEN,Gentamicin susceptibility result
+AN,Amikacin susceptibility result
+Acide nalidixique,Nalidixic acid susceptibility result
+ofx,Ofloxacin susceptibility result
+CIP,Ciprofloxacin susceptibility result
+C,Chloramphenicol susceptibility result
+Co-trimoxazole,Co-trimoxazole (Trimethoprim/Sulfamethoxazole) susceptibility result
+Furanes,Nitrofurantoin susceptibility result
+colistine,Colistin susceptibility result
+Collection_Date,Date when the bacterial sample was collected
+Notes,Additional notes about patient condition or sample
+street,Parsed street from the Address field
+city,Parsed city from the Address field
+state,US state code extracted from Address
+zip,ZIP code extracted from Address
+Souche_ID,Extracted bacterial strain numeric identifier
+Souche_description,Bacterial species name extracted from Souches
+Age,Numeric age extracted from age/gender field
+Gender,Gender extracted from age/gender field
+First_Name,Patient given (first) name extracted from Name
+Surname,Patient family name extracted from Name
