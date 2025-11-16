@@ -1,4 +1,4 @@
-# 🧬 Antibiotic Resistance Analysis  
+# Antibiotic Resistance Analysis  
 ### Exploring demographic, temporal, and bacterial patterns in a synthetic clinical dataset
 
 ## Project Overview
