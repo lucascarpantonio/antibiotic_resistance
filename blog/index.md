@@ -1,10 +1,9 @@
-
 ---
 layout: default
-title: "Exploring Antibiotic Resistance: My First Machine Learning Experiment"
+title: "Exploring Antibiotic Resistance"
 date: 2025-11-16
 tags: [data science, machine learning, healthcare, python]
-image: /assets/img/antibiotic-resistance-thumbnail.png
+image: /assets/img/antibiores.png
 description: "A first hands-on experiment applying data analysis and basic ML concepts to a real-world antibiotic resistance dataset."
 ---
 
@@ -28,7 +27,7 @@ If you want to see more of my work and experiments, you can visit my GitHub blog
 The dataset contains information about:
 
 - the **bacterial strain** that was isolated  
-- some **clinical features** of the patient  
+- some **clinical features** about patients
 - the **response to different antibiotics** (sensitive / intermediate / resistant)  
 - basic contextual information such as **collection date** and **location**  
 
