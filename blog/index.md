@@ -1,10 +1,6 @@
 ---
 layout: default
 title: "Exploring Antibiotic Resistance"
-date: 2025-11-16
-tags: [data science, machine learning, healthcare, python]
-image: /assets/img/antibiores.png
-description: "A first hands-on experiment applying data analysis and basic ML concepts to a real-world antibiotic resistance dataset."
 ---
 
 Over the last months I’ve started to explore machine learning more seriously, step by step and with a lot of curiosity.  
@@ -27,7 +23,7 @@ If you want to see more of my work and experiments, you can visit my GitHub blog
 The dataset contains information about:
 
 - the **bacterial strain** that was isolated  
-- some **clinical features** about patients
+- some **clinical features** about patients  
 - the **response to different antibiotics** (sensitive / intermediate / resistant)  
 - basic contextual information such as **collection date** and **location**  
 
@@ -39,22 +35,6 @@ With this data, I started from a few simple questions:
 4. Which variables might be useful later for a **predictive model**?
 
 This is still an exploratory project, but these questions already help to shape the analysis and keep things focused.
-
----
-
-## Cleaning and Preparing the Data
-
-Like in most real-world projects, the first serious step was **data cleaning**.
-
-I worked on:
-
-- splitting complex fields (for example, turning full addresses into street, city, ZIP code)  
-- handling missing values  
-- normalizing the names of bacterial species  
-- standardizing the antibiotic response columns  
-- creating new helper variables where useful  
-
-This part is not glamorous, but it is essential: without a clean and consistent dataset, any later model would be fragile at best.
 
 ---
 
