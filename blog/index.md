@@ -1,121 +1,152 @@
 ---
-layout: default
-title: "Exploring Antibiotic Resistance"
+layout: post
+title: "Antibiotic Resistance: What a Dataset Can Reveal Before the First Prediction"
+description: "A narrative walkthrough of exploratory analysis, data cleaning, and a first predictive model on antibiotic susceptibility patterns."
+tags: [python, data-science, healthcare, machine-learning]
+image: /images/antibiores.png
 ---
 
-Over the last months I’ve started to explore machine learning more seriously, step by step and with a lot of curiosity.  
-This article is the story of my **first real experiment**: a data-driven exploration of an antibiotic resistance dataset.
+# Antibiotic Resistance: What a Dataset Can Reveal Before the First Prediction
 
-My goal here is not to build a perfect, production-ready model, but to learn how to:
+We often talk about antibiotic resistance as if it were a distant threat — something happening inside hospitals, laboratories, or research centers, far from everyday life.  
+But behind the scenes, thousands of microbiology tests are performed every single day, generating data that silently record how bacteria adapt, evolve, and sometimes outsmart our antibiotics.
 
-- clean and structure messy data  
-- explore patterns in bacteria and infections  
-- visualize results in a way that is understandable and useful  
-- prepare the ground for future ML models  
+When I began this project, my goal wasn’t just to “train a model.”  
+I wanted to explore a simple but compelling question:
 
-If you want to see more of my work and experiments, you can visit my GitHub blog here:  
-[https://lucascarpantonio.github.io](https://lucascarpantonio.github.io)
+**How much can we learn about antibiotic resistance *before* applying machine learning?**
 
----
-
-## Dataset and Questions
-
-The dataset contains information about:
-
-- the **bacterial strain** that was isolated  
-- some **clinical features** about patients  
-- the **response to different antibiotics** (sensitive / intermediate / resistant)  
-- basic contextual information such as **collection date** and **location**  
-
-With this data, I started from a few simple questions:
-
-1. Which bacteria appear most frequently in the dataset?  
-2. Are some bacteria clearly associated with specific **types of infection**?  
-3. What patterns can we see in **antibiotic resistance** across strains?  
-4. Which variables might be useful later for a **predictive model**?
-
-This is still an exploratory project, but these questions already help to shape the analysis and keep things focused.
+This post walks throughout that journey, from raw clinical records to a first baseline model to reveal what the data whispered long before the algorithm spoke.
 
 ---
 
-## Exploring Bacteria Frequencies
+## 1. Meeting the Dataset: Patients, Samples, Bacteria
 
-Once the dataset was in a better shape, I started with **simple frequency analysis**.
+Every dataset has a peculaliarity. This one felt like stepping into a microbiology lab: diverse patients, different sample origins, and a long list of bacterial species, each with its own resistance profile.
 
-- I counted how many times each bacterial species appeared.  
-- I identified the most common strains in the dataset.  
+Before touching any model, I attempted to explore the big picture:  
+*What does resistance look like in this dataset? How balanced are the classes? Who are the patients behind these tests?*
 
-A plain frequency chart is already informative: it tells us where to focus and which bacteria might be driving most of the clinical cases in this dataset.
+### Distribution of antibiotic test outcomes  
+![Figure 1](images/image1.png)
 
-However, raw counts only tell part of the story.
-
----
-
-## Linking Bacteria to Infection Type
-
-To go a bit deeper, I grouped the data by:
-
-- `souche_description` (bacterial strain)  
-- `infection_label` (type of infection)  
-
-This produced a table showing how often each strain appears in each infection category.
-
-This view is more clinically interesting, because:
-
-- some bacteria are spread across several infection types  
-- others seem to be strongly associated with one specific label  
-
-In future iterations, this relationship between **strain** and **infection type** will probably be one of the key inputs for any ML model.
+The dataset is **heavily dominated by “Sensitive” samples**.  
+A detail that may seem trivial, but that alone shapes the entire modeling strategy, especially when the outcome we care about (resistance) is the minority.
 
 ---
 
-## Looking at Antibiotic Resistance
+## 2. Looking at the Human Side of the Data
 
-The most delicate part of the dataset is the response to different antibiotics.
+Antibiotic resistance is a microbiological phenomenon, however it doesn’t exist without patients.  
+So I turned to the demographic information.
 
-For each antibiotic, the result is typically encoded as:
+### Age distribution  
+![Figure 2](images/image2.png)
 
-- **S** – sensitive  
-- **I** – intermediate  
-- **R** – resistant  
+A first glance showed a dataset that wasn’t “textbook clean”: peaks, gaps, and irregularities that hint at **real-world data entry** rather than curated research-grade inputs.  
+This makes the analysis more challenging, but also more authentic.
 
-By aggregating these responses, we can start to:
+## Trends Over Time: How Infections Evolve Across Bacterial Species
 
-- see which antibiotics tend to lose effectiveness more often  
-- compare resistance patterns across different bacteria  
-- identify combinations of strain + infection type where resistance is particularly frequent  
+Before looking at resistance itself, I explored how infections evolved over the years for each bacterial strain, broken down by gender.  
+This view doesn’t reveal resistance patterns, but it exposes **how different species fluctuate over time** , a dynamic often influenced by hospital practices, seasonal waves, and population demographics.
 
-This is exactly the kind of structured information that a future classifier could try to learn and predict.
+### Temporal trends by strain and gender  
+![Figure 3](images/image3.png)
 
----
-
-## Next Steps and ML Perspective
-
-At this stage, the project is mainly **exploratory**.  
-But during the analysis, a few natural next steps emerged:
-
-- Build a simple **classification model** to predict resistance (e.g. S vs R) for a given antibiotic.  
-- Explore **feature importance** to understand which variables drive resistance patterns.  
-- Experiment with **clustering** to see if there are natural groups of samples sharing similar resistance profiles.  
-- Evaluate how much **clinical variables** (such as comorbidities) actually add to the predictive power.
-
-The idea is to start simple (logistic regression, decision trees, etc.) and then iterate from there.
+Several species show clear peaks in specific years, while others remain relatively stable.  
+Gender differences are generally subtle, but the temporal variability is significant. This could later interact with resistance patterns in more advanced models.
 
 ---
 
-## Conclusions
+## 3. The Microbiological Core: Species and Sample Origin
 
-This project is a **first hands-on step** into applying data science and early ML concepts to a real, meaningful topic: antibiotic resistance.
 
-What I have now is:
+### Resistance trends over time by strain and gender
 
-- a cleaned and structured dataset  
-- a first set of descriptive insights about bacteria, infections and resistance  
-- a clearer view of which questions could be turned into machine learning tasks  
+To summarize resistance across all tested antibiotics, I computed a **Resistance Index** for each isolate — the proportion of antibiotics for which the result was “Resistant (R)”.  
+Aggregating this index by bacterial strain, year, and gender reveals how resistance evolves over time.
 
-It’s not a finished product, but it is a solid foundation.  
-From here, I plan to move towards more explicit ML models and to keep sharing the journey on my GitHub blog:
+![Figure X – Resistance Index by strain, year and gender](images/resistance_index_by_strain_gender_year.png)
 
-👉 [https://lucascarpantonio.github.io](https://lucascarpantonio.github.io)
+### Observations
 
-If you’re curious about the code or want to follow my future experiments, feel free to stop by!
+The Resistance Index reveals that most bacterial species maintain **stable resistance levels over time**, with only small fluctuations year to year.  
+Gender differences are minimal, as male and female curves generally overlap across all strains.  
+
+Each species, however, preserves its own characteristic profile:  
+*E. coli* and *Klebsiella pneumoniae* show consistently moderate resistance, *Proteus mirabilis* and *Morganella morganii* display mild variability, while others remain largely steady.
+
+Overall, no species exhibits a clear upward trend which suggests that susceptibility has stable patterns within the observed period.
+
+
+
+### Correlation Heatmap  
+![Figure 6](images/image6.png)
+
+There are no overwhelming correlations — a sign that the dataset is rich but not dominated by a single variable.  
+Yet some patterns reflect meaningful clinical relationships, reinforcing the insights observed earlier.
+
+---
+
+## 5. A First Predictive Attempt: Logistic Regression
+
+For this first iteration, I chose a **Logistic Regression** model.  
+It’s not the most powerful algorithm, but it’s transparent, fast, and ideal for establishing a baseline.
+
+### Model Performance
+ 
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|---------|
+| **0** | 0.562 | 0.515 | 0.537 | 859 |
+| **1** | 0.518 | 0.605 | 0.558 | 887 |
+| **Accuracy** | — | — | **0.559** | 1746 |
+| **Macro Avg** | 0.540 | 0.560 | 0.548 | 1746 |
+| **Weighted Avg** | 0.540 | 0.559 | 0.548 | 1746 |
+
+The accuracy settles around **50%**, which is exactly what you’d expect given:
+- the imbalance between classes,
+- the complexity of resistance mechanisms,
+- the variability of clinical data.
+
+Instead of chasing accuracy, I focused on **learning from the model** — specifically from the importance of its coefficients.
+
+---
+
+## 6. What the Model Thinks: Feature Importance
+
+Logistic Regression provides an elegant window into which variables influence predictions.
+
+### Top predictive features  
+![Figure 8](images/image8.png)
+
+As intuition suggested, the model leans heavily on:
+- **bacterial species**, and  
+- **sample origin**,  
+
+confirming that microbiological context outweighs demographic details.  
+Even without high accuracy, the model helps crystallize the story that the data had been telling all along.
+
+---
+
+## 7. Final Thoughts: A Starting Point, Not a Destination
+
+This analysis wasn’t meant to produce a perfect model.  
+It was meant to **understand** the dataset — to listen to what it reveals before trying to force a result from it.
+
+What emerged is a clear narrative:
+- resistance patterns differ strongly between species,  
+- sample types contribute meaningfully,  
+- demographic variables play a secondary role,  
+- and even a simple model can highlight the right signals.
+
+The next steps are already mapped:
+- tree-based models,  
+- dealing with imbalance,  
+- deeper feature engineering,  
+- and integrating domain knowledge.
+
+But the most important takeaway is this:  
+**data analysis is not just about algorithms — it’s about discovering the story behind the data.**
+
+This dataset had one to tell, long before the machine learning began.
