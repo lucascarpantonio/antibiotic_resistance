@@ -1,102 +1,92 @@
-# Antibiotic Resistance Analysis  
-### Exploring demographic, temporal, and bacterial patterns in a synthetic clinical dataset
+# Antibiotic Resistance — A Data-Driven Exploration  
+### Understanding resistance patterns before building a predictive model
 
-## Project Overview
-Antibiotic resistance is a rising global concern, driven by the ability of bacteria to rapidly adapt and overcome standard treatments.  
-This project analyzes a **synthetic dataset** that simulates clinical laboratory results, patient demographics, and bacterial susceptibility profiles.
+This project explores a synthetic clinical microbiology dataset to understand how **bacterial resistance**, **patient demographics**, and **temporal trends** interact.  
+Rather than jumping straight into machine learning, the analysis focuses on discovering *what the data can reveal on its own*; a crucial mindset in real-world data science.
 
-The goal is to explore:
-- How infections vary across **age**, **gender**, and **geography**
-- Which bacterial species are most frequently involved
-- How resistance patterns differ across antibiotics
-- Whether demographic or clinical variables correlate with recurrent infections
-- What predictive insights can be extracted using a simple machine-learning model
-
-The project follows a complete exploratory workflow — from cleaning to visualization, and ends with a first predictive model.
+This repository contains the full workflow: from cleaning and reshaping raw clinical data to constructing a first resistance baseline model and visualizing higher-order patterns such as resistance indexes and temporal dynamics.
 
 ---
 
-## Dataset Description
-The dataset contains simulated clinical microbiology data, including:
+## Project Objectives
 
-- **Demographics:** Age, gender, state, unstructured patient notes  
-- **Clinical history:** Infection frequency, comorbidities  
-- **Bacterial species:** *E. coli*, *Klebsiella pneumoniae*, *Pseudomonas aeruginosa*, and more  
-- **Antibiotics tested:** Ciprofloxacin, Imipenem, Gentamicin, Cephalosporins, etc.  
-- **Resistance results:** Binary values (0 = sensitive, 1 = resistant)  
-- **Collection date:** Used for temporal trend analysis  
+- Explore **resistance patterns** across multiple antibiotics  
+- Analyse how **gender**, **age**, and **sample origin** influence susceptibility  
+- Examine **temporal trends** in infections and resistance  
+- Build a **Resistance Index** to summarize multi-antibiotic behavior  
+- Train an initial **Logistic Regression** model  
+- Highlight the limitations of baseline approaches and motivate more advanced modelling
 
-Although synthetic, the dataset is structured to resemble real hospital or public-health microbiology data.
+---
+
+## Key Insights
+
+### Resistance Index (multi-antibiotic measure)
+By calculating the proportion of antibiotics for which each isolate is resistant, we uncover:
+- Stable resistance profiles over time  
+- Minimal gender-related differences  
+- Distinct “signatures” for each bacterial strain  
+- No clear upward trend in resistance within the observed years
+
+### Temporal Dynamics
+A multi-panel visualization shows how infections fluctuate year by year for each species.  
+These trends often reflect:
+- seasonal patterns  
+- clinical practices  
+- sampling variability  
+
+### Bacterial Behaviour
+Species maintain characteristic profiles:
+- *E. coli* and *K. pneumoniae* show consistent mid-range resistance  
+- *Morganella morganii* and *Proteus mirabilis* show slightly more variability  
+- Other species exhibit stable, predictable behavior
+
+### Correlation Structure
+A heatmap reveals minimal strong correlations, meaning:
+- the dataset is rich, multidimensional  
+- no single feature dominates  
+- models must rely on interactions rather than simple rules
+
+### Baseline Predictive Model
+A logistic regression model was used as a preliminary benchmark.
+
+**Performance Summary:**
+- ~50% accuracy  
+- Good recall for the majority class  
+- Demonstrates the difficulty of predicting resistance from demographics alone
+
+This prototype sets the stage for tree-based models, SHAP interpretability, and cost-sensitive learning.
 
 ---
 
 ## Data Cleaning & Preparation
-Main preprocessing steps include:
 
-- Fixing missing or inconsistent demographic fields  
-- Standardizing unstructured text (gender, address, state extraction)  
-- Removing corrupted or unrealistic entries  
-- Extracting temporal components from the `collection_date`  
-- Encoding resistance results for grouping and modeling  
-
----
-
-## Exploratory Analysis Highlights
-
-### ** Demographic Insights**
-- Infections show an age-related pattern, with some bacteria more common in older patients.  
-- Gender distribution varies across species.  
-- Some U.S. states show notably higher infection counts.
+The notebook includes extensive preprocessing:
+- Extracting and fixing inconsistent `collection_date` entries  
+- Harmonizing gender and categorical fields  
+- Removing corrupted rows  
+- Identifying antibiotic result columns and creating a consolidated structure  
+- Deriving temporal features  
+- Computing the **Resistance Index** per isolate  
 
 ---
 
-### ** Bacterial Behaviour**
-- *E. coli* and *K. pneumoniae* dominate the dataset.  
-- Less frequent species nevertheless display consistent, biologically meaningful resistance patterns.
+## Future Work
+
+- Try **Random Forest**, **XGBoost**, and **LightGBM**  
+- Introduce **cost-sensitive training** for imbalanced data  
+- Perform **SHAP-based interpretability**  
+- Build a small **dashboard** (Plotly or Streamlit)  
+- Expand to **multi-class or multi-label modelling**  
+- Add antibiotic-specific predictive models  
 
 ---
 
-### ** Antibiotic Resistance Landscape**
-A resistance heatmap reveals **three broad behavioral clusters**:
-
-- **High resistance:** *E. coli*, *Klebsiella pneumoniae*  
-- **Moderate resistance:** Citrobacter, Enterobacter, Morganella  
-- **Lower resistance:** Serratia, *P. aeruginosa* (for selected antibiotics)
-
-Some antibiotics remain broadly effective:
-- **Imipenem**  
-- **Ciprofloxacin**  
-- **Colistin**
-
-These serve as key therapeutic options (with colistin as a last resort).
+## 📖 Related Blog Post
+A full narrative walkthrough of this project is available here:  
+👉 https://lucascarpantonio.github.io/antibiotic_resistance/blog/
 
 ---
 
-### ** Temporal Trends**
-Temporal grouping suggests moderate shifts in resistance across years — requiring long-term monitoring rather than static assumptions.
-
----
-
-## Predictive Modeling (Prototype)
-A basic **Logistic Regression** model was built to classify cases as *high-risk* vs *low-risk* based on clinical and demographic variables.
-
-**Key results:**
-- **Accuracy ≈ 50%**
-- Strong recall for high-risk cases (0.85)
-- Weak recall for low-risk cases (0.15)
-- Indicates:  
-  - complex patterns  
-  - limited predictive features  
-  - the need for more advanced models (Random Forest, XGBoost)
-
-This prototype serves as an introduction to modeling rather than a clinical decision tool.
-
----
-
-## Repository Structure
-├── antibiotic_analysis.ipynb     → Full notebook with analysis & modeling
-├── data/                         → Synthetic dataset(s)
-├── images/                       → Visual assets for README/blog
-├── README.md                     → Project summary (this file)
-└── requirements.txt              → Dependencies
-
+## 🧑‍💻 Author
+Luca — Data Scientist in progress, focusing on real-world analytical pipelines.
