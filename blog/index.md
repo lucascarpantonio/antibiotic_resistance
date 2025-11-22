@@ -22,7 +22,7 @@ This post walks throughout that journey, from raw clinical records to a first ba
 
 ## 1. Meeting the Dataset: Patients, Samples, Bacteria
 
-Every dataset has a peculaliarity. This one felt like stepping into a microbiology lab: diverse patients, different sample origins, and a long list of bacterial species, each with its own resistance profile.
+This post walks through that journey, from raw clinical records to a first baseline model, revealing what the data whispered long before the algorithm spoke.
 
 Before touching any model, I attempted to explore the big picture:  
 *What does resistance look like in this dataset? How balanced are the classes? Who are the patients behind these tests?*
